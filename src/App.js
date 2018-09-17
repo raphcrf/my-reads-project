@@ -27,17 +27,19 @@ class BooksApp extends Component {
     
 }
   
-  searchBooks(query){
-    BooksAPI.search(query)
-    .then(books=> {return books})
+
+  changeShelf = (book, shelf)=>{
+    BooksAPI.update(book, shelf)
   }
+  
+  
 
   render() {
     return (
       <div className="app">
-
+      
       <Route path="/search" render={()=>(
-        <Search allBooks={this.state.books} searchBooks={this.searchBooks}/>
+        <Search  changeShelf ={this.changeShelf}/>
       )}/>
 
       <Route exact path="/" render={()=>(
@@ -47,9 +49,9 @@ class BooksApp extends Component {
         </div>
         <div className="list-books-content">
           <div>
-            <CurrentlyReading allBooks={this.state.books} />
-            <WantToRead allBooks={this.state.books} />
-            <Read allBooks={this.state.books} />
+            <CurrentlyReading allBooks={this.state.books} changeShelf ={this.changeShelf} />
+            <WantToRead allBooks={this.state.books} changeShelf={this.changeShelf}/>
+            <Read allBooks={this.state.books} changeShelf={this.changeShelf}/>
           </div>
         </div>
         <div className="open-search">
